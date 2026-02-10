@@ -32,7 +32,16 @@ class DonutTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Donut Tab'));
+    return GridView.builder(
+      gridDelegate: gridDelegate,
+      itemBuilder: DonutTile()
+        donutFalvor: DonutOnSale[index][0],
+        donutPrice: DonutOnSale[index][0],
+        donutColor: DonutOnSale[index][0],
+        donutImagePath: DonutOnSale[index][0],
+        donutOnSale: DonutOnSale[index][0],
+    ),
+      );
   }
 }
  
