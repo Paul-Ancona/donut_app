@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
             // 3. Contenido de las pestañas (TabBarView)
             Expanded(
               child: TabBarView(
-                controller: _tabController,
+                //controller: _tabController,
                 children: [
                   DonutTab(),
                   PizzaTab(),
