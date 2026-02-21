@@ -15,7 +15,7 @@ class DonutTile extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: donutColor[100],
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(24),
         ),
         child: Column(
           children: [
@@ -78,7 +78,6 @@ class DonutTile extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                     decoration: TextDecoration.underline,
-              
                   ),
                   )
                 ],

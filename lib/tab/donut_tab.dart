@@ -34,10 +34,10 @@ class DonutTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      itemCount: donutOnSale.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2, childAspectRatio: 1 /1.4,),
         //tamaño de cada columna
-        
       itemBuilder: (context, index){
         return DonutTile(
       //lo que se va a construir
@@ -48,9 +48,6 @@ class DonutTab extends StatelessWidget {
         donutProvider: donutOnSale[index][4],
       );
       },
-      
     );
-    
   }
 }
- 

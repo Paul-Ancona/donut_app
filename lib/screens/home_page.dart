@@ -69,10 +69,54 @@ class _HomePageState extends State<HomePage> {
                 //controller: _tabController,
                 children: [
                   DonutTab(),
-                  PizzaTab(),
+                  BurgerTab(),
                   PancakeTab(),
                   SmoothieTab(),
-                  BurgerTab(),
+                  PizzaTab(),
+                ],
+              ),
+            ),
+            Container(
+              color: Colors.white,
+              padding: EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 16),
+                    child: Column(
+                      //alinear a la izquierda (horiontalmente)
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('2 Items | \$45', style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ) ,
+                        ),
+                        Text(
+                          'Delivery Charges Included',
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                
+                  ElevatedButton(
+                    onPressed: (){},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.pink[400],
+                    ),
+                  child: Text(
+                    'view cart',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    ),
+                  ),
+                  
                 ],
               ),
             ),
