@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/cart_model.dart';
 
 class PancakeTile extends StatelessWidget {
   final String pancakeName;
@@ -27,7 +29,6 @@ class PancakeTile extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // etiqueta del precio
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -54,14 +55,10 @@ class PancakeTile extends StatelessWidget {
                 ),
               ],
             ),
-
-            // imagen
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
               child: Image.asset(pancakeImagePath),
             ),
-
-            // nombre
             Text(
               pancakeName,
               style: const TextStyle(
@@ -69,28 +66,35 @@ class PancakeTile extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-
             const SizedBox(height: 4),
-
-            // proveedor
             Text(
               pancakeProvider,
               style: TextStyle(color: Colors.grey[600]),
             ),
-
-            // fila inferior
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.favorite, color: Colors.pink[400]),
-                  const Text(
-                    "ADD",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
+                  GestureDetector(
+                    onTap: () {
+                      final price = double.tryParse(pancakePrice) ?? 0;
+
+                      context.read<CartModel>().addItem(
+                            name: pancakeName,
+                            price: price,
+                            imagePath: pancakeImagePath,
+                            color: pancakeColor,
+                          );
+                    },
+                    child: const Text(
+                      "ADD",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],

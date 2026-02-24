@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/cart_model.dart';
 
 class SmoothieTile extends StatelessWidget {
   final String smoothieName;
@@ -27,7 +29,6 @@ class SmoothieTile extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // etiqueta del precio
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -54,14 +55,10 @@ class SmoothieTile extends StatelessWidget {
                 ),
               ],
             ),
-
-            // imagen
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
               child: Image.asset(smoothieImagePath),
             ),
-
-            // nombre
             Text(
               smoothieName,
               style: const TextStyle(
@@ -69,28 +66,35 @@ class SmoothieTile extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-
             const SizedBox(height: 4),
-
-            // proveedor
             Text(
               smoothieProvider,
               style: TextStyle(color: Colors.grey[600]),
             ),
-
-            // fila inferior
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.favorite, color: Colors.pink[400]),
-                  const Text(
-                    "ADD",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
+                  GestureDetector(
+                    onTap: () {
+                      final price = double.tryParse(smoothiePrice) ?? 0;
+
+                      context.read<CartModel>().addItem(
+                            name: smoothieName,
+                            price: price,
+                            imagePath: smoothieImagePath,
+                            color: smoothieColor,
+                          );
+                    },
+                    child: const Text(
+                      "ADD",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],

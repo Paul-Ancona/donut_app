@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/cart_model.dart';
 
 class PizzaTile extends StatelessWidget {
   final String pizzaName;
@@ -27,7 +29,6 @@ class PizzaTile extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // etiqueta del precio
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -54,14 +55,10 @@ class PizzaTile extends StatelessWidget {
                 ),
               ],
             ),
-
-            // imagen
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
               child: Image.asset(pizzaImagePath),
             ),
-
-            // nombre
             Text(
               pizzaName,
               style: const TextStyle(
@@ -69,28 +66,35 @@ class PizzaTile extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-
             const SizedBox(height: 4),
-
-            // proveedor
             Text(
               pizzaProvider,
               style: TextStyle(color: Colors.grey[600]),
             ),
-
-            // fila inferior
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.favorite, color: Colors.pink[400]),
-                  const Text(
-                    "ADD",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
+                  GestureDetector(
+                    onTap: () {
+                      final price = double.tryParse(pizzaPrice) ?? 0;
+
+                      context.read<CartModel>().addItem(
+                            name: pizzaName,
+                            price: price,
+                            imagePath: pizzaImagePath,
+                            color: pizzaColor,
+                          );
+                    },
+                    child: const Text(
+                      "ADD",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],

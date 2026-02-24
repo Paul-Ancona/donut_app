@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/cart_model.dart';
 
 class BurgerTile extends StatelessWidget {
   final String burgerName;
   final String burgerPrice;
-  final dynamic burgerColor; // espera MaterialColor (Colors.red, Colors.brown, etc.)
+  final dynamic burgerColor;
   final String burgerImagePath;
   final String burgerProvider;
 
@@ -27,7 +29,6 @@ class BurgerTile extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // etiqueta del precio
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -54,14 +55,10 @@ class BurgerTile extends StatelessWidget {
                 ),
               ],
             ),
-
-            // imagen
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
               child: Image.asset(burgerImagePath),
             ),
-
-            // nombre
             Text(
               burgerName,
               style: const TextStyle(
@@ -69,28 +66,35 @@ class BurgerTile extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-
             const SizedBox(height: 4),
-
-            // proveedor
             Text(
               burgerProvider,
               style: TextStyle(color: Colors.grey[600]),
             ),
-
-            // fila inferior (like + add)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.favorite, color: Colors.pink[400]),
-                  const Text(
-                    "ADD",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
+                  GestureDetector(
+                    onTap: () {
+                      final price = double.tryParse(burgerPrice) ?? 0;
+
+                      context.read<CartModel>().addItem(
+                            name: burgerName,
+                            price: price,
+                            imagePath: burgerImagePath,
+                            color: burgerColor,
+                          );
+                    },
+                    child: const Text(
+                      "ADD",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],
